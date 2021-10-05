@@ -118,8 +118,10 @@ public class BHMain {
 				workingList = readIntArray(args[2]);
 			}
 
-			// CODE FOR CHECKING BLACK HOLE SOLUTIONS
-
+			// CODE FOR CHECKING BLACK HOLE 
+			BHCheck checker = new BHCheck(layout, workingList);
+			boolean solution = checker.run();
+			System.out.println(solution);
 			stdInScanner.close();
 			return;
 
@@ -143,8 +145,6 @@ public class BHMain {
 			}
 
 			// CODE FOR CHECKING WORM HOLE SOLUTIONS
-
-			stdInScanner.close();
 			return;
 
 		case "SOLVE":

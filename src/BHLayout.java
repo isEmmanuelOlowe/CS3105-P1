@@ -196,6 +196,23 @@ public class BHLayout {
         this.layout = old.copyLayout();
     }
 
+    /**
+     * Determines if 2 cards are adjacent
+     * 
+     * @param x card 1
+     * @param y card 2
+     */
+    public boolean adjacent(int x, int y) {
+        if (Math.pow(((x % this.numranks) - (y % this.numranks)), 2) == 1) {
+            return true;
+        }
+        else if (Math.pow((x % this.numranks) - (y % this.numranks), 2) == Math.pow(this.numranks - 1,2)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 
