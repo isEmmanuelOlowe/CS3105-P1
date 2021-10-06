@@ -3,10 +3,15 @@ import java.util.ArrayList;
 
 public class BHCheck {
 
+    // Stores the Layout of the Black Hole Game
     protected BHLayout game;
+    // Stores the proposed solution to the game
     protected ArrayList<Integer> pSolution;
+    // Stores the piles which still contain cards which need to be added to the hole.
     protected ArrayList<Integer> pilesRemaining = new ArrayList<Integer>();
+    // Stores the total number of cards remaining which still require to be added to the hole.
     protected int cardRemaining = 0;
+    // Stores the current card at the top of the hole.
     protected int holeCard;
 
     /**
@@ -21,10 +26,12 @@ public class BHCheck {
         for (int i = 0; i < this.game.numPiles(); i++) {
             this.pilesRemaining.add(this.game.pileSize(i));
         }
-        //Since ace is already in the whole total - 1 cards in play
+
+        // Cacluates the total number of cards required to be added to the hole.
         for (int i = 0; i < this.pilesRemaining.size(); i++) {
             this.cardRemaining += this.pilesRemaining.get(i);
         }
+        // Gets the hole card.
         this.holeCard = this.game.holeCard();
     }
 
