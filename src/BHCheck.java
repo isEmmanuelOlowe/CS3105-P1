@@ -20,21 +20,27 @@ public class BHCheck {
     }
 
     public boolean run() {
-        for (int i = 0; i < this.pSolution.size(); i+=2) {
-            int j = i + 1;
-            if (this.game.cardAt(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1) != this.pSolution.get(j)) {
-                return false;
+        try {
+            for (int i = 0; i < this.pSolution.size(); i+=2) {
+                int j = i + 1;
+                if (this.game.cardAt(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1) != this.pSolution.get(j)) {
+                    return false;
+                }
+                else if (!this.game.adjacent(this.pSolution.get(j), this.holeCard)) {
+                    return false;
+                }
+                this.cardRemaining--;
+                this.holeCard = this.pSolution.get(j);
+                this.pilesRemaining.set(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1);
+                if (this.cardRemaining == 0) {
+                    return true;
+                }
             }
-            else if (!this.game.adjacent(this.pSolution.get(j), this.holeCard)) {
-                return false;
-            }
-            this.cardRemaining--;
-            this.holeCard = this.pSolution.get(j);
-            this.pilesRemaining.set(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1);
-            if (this.cardRemaining == 0) {
-                return true;
-            }
+            return true;
         }
-        return true;
+        //Array out of bounds has occured
+        catch (Exception e) {
+            return false;
+        }
     }
 }
