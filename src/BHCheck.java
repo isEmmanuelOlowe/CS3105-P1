@@ -6,7 +6,7 @@ public class BHCheck {
     protected BHLayout game;
     protected ArrayList<Integer> pSolution;
     protected ArrayList<Integer> pilesRemaining = new ArrayList<Integer>();
-    protected int cardRemaining;
+    protected int cardRemaining = 0;
     protected int holeCard;
 
     /**
@@ -22,7 +22,9 @@ public class BHCheck {
             this.pilesRemaining.add(this.game.pileSize(i));
         }
         //Since ace is already in the whole total - 1 cards in play
-        this.cardRemaining = this.game.cardsInDeck() - 1;
+        for (int i = 0; i < this.pilesRemaining.size(); i++) {
+            this.cardRemaining += this.pilesRemaining.get(i) - 1;
+        }
         this.holeCard = this.game.holeCard();
     }
 
@@ -61,11 +63,13 @@ public class BHCheck {
                 // in the event that solution has entires remaining
                 // indicating it is too long to be solution of this game.
                 else if (this.cardRemaining == 0) {
+                    System.out.println("loop");
                     return false;
                 }
             }
             // In event solution lacks enough card to be solution
-            if (this.cardRemaining > 2) {
+            if (this.cardRemaining > 1) {
+                System.out.println("Cards Remaining: " + this.cardRemaining);
                 return false;
             }
             else {
