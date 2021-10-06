@@ -23,7 +23,7 @@ public class BHCheck {
         }
         //Since ace is already in the whole total - 1 cards in play
         for (int i = 0; i < this.pilesRemaining.size(); i++) {
-            this.cardRemaining += this.pilesRemaining.get(i) - 1;
+            this.cardRemaining += this.pilesRemaining.get(i);
         }
         this.holeCard = this.game.holeCard();
     }
@@ -57,7 +57,7 @@ public class BHCheck {
                 this.pilesRemaining.set(pile, this.pilesRemaining.get(pile) - 1);
 
                 // indicates that no cards remain and solution has no more entires otherwise 
-                if (this.cardRemaining == 0 && i + 2 == this.pSolution.size()) {
+                if (this.cardRemaining == 0 && i + 2 >= this.pSolution.size()) {
                     return true;
                 }
                 // in the event that solution has entires remaining
