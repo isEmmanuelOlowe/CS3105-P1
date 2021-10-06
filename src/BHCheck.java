@@ -63,13 +63,11 @@ public class BHCheck {
                 // in the event that solution has entires remaining
                 // indicating it is too long to be solution of this game.
                 else if (this.cardRemaining == 0) {
-                    System.out.println("loop");
                     return false;
                 }
             }
             // In event solution lacks enough card to be solution
             if (this.cardRemaining > 1) {
-                System.out.println("Cards Remaining: " + this.cardRemaining);
                 return false;
             }
             else {
