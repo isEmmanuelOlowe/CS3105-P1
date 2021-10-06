@@ -65,7 +65,7 @@ public class BHCheck {
                 }
             }
             // In event solution lacks enough card to be solution
-            if (this.cardRemaining > 1) {
+            if (this.cardRemaining > 2) {
                 return false;
             }
             else {
