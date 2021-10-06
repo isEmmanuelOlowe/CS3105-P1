@@ -8,6 +8,13 @@ public class BHCheck {
     protected ArrayList<Integer> pilesRemaining = new ArrayList<Integer>();
     protected int cardRemaining;
     protected int holeCard;
+
+    /**
+     * Constructor for creating checker for Black Hole.
+     * 
+     * @param game the layout of the game being checked if solution is present.
+     * @param pSolution the proposed solution being checked.
+     */
     public BHCheck(BHLayout game, ArrayList<Integer> pSolution){
         this.game = game;
         this.pSolution = pSolution;
@@ -19,26 +26,53 @@ public class BHCheck {
         this.holeCard = this.game.holeCard();
     }
 
+    /**
+     * Runs the checker and determines if proposed solution is correct.
+     */
     public boolean run() {
         try {
+            // Runs over the proposed solution set
             for (int i = 0; i < this.pSolution.size(); i+=2) {
-                int j = i + 1;
-                if (this.game.cardAt(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1) != this.pSolution.get(j)) {
+                // the current pill the solution is taking a card from
+                int pile = this.pSolution.get(i);
+                // the card the solution is attempting to move to the whole.
+                int currentCard = this.pSolution.get(i + 1);
+
+                // Checks that solutions card is at the top of it's pile in the game layout
+                if (this.game.cardAt(pile, this.pilesRemaining.get(pile) - 1) != currentCard) {
                     return false;
                 }
-                else if (!this.game.adjacent(this.pSolution.get(j), this.holeCard)) {
+                // Checks the currentCard is adjacent to the current whole card.
+                else if (!this.game.adjacent(currentCard, this.holeCard)) {
                     return false;
                 }
+
+                // reduces card remaining that are required to be added to the pile
                 this.cardRemaining--;
-                this.holeCard = this.pSolution.get(j);
-                this.pilesRemaining.set(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1);
-                if (this.cardRemaining == 0) {
+                // adds the current card to the top of the hole.
+                this.holeCard = currentCard;
+                // reduces the amount of cards in the pile the card was taken from
+                this.pilesRemaining.set(pile, this.pilesRemaining.get(pile) - 1);
+
+                // indicates that no cards remain and solution has no more entires otherwise 
+                if (this.cardRemaining == 0 && i + 2 == this.pSolution.size()) {
                     return true;
                 }
+                // in the event that solution has entires remaining
+                // indicating it is too long to be solution of this game.
+                else if (this.cardRemaining == 0) {
+                    return false;
+                }
             }
-            return true;
+            // In event solution lacks enough card to be solution
+            if (this.cardRemaining > 1) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
-        //Array out of bounds has occured
+        // Array out of bounds has occured
         catch (Exception e) {
             return false;
         }
