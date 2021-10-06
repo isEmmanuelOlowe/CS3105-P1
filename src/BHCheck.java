@@ -23,7 +23,6 @@ public class BHCheck {
         for (int i = 0; i < this.pSolution.size(); i+=2) {
             int j = i + 1;
             if (this.game.cardAt(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i)) - 1) != this.pSolution.get(j)) {
-                System.out.println(this.game.cardAt(this.pSolution.get(i), this.pilesRemaining.get(this.pSolution.get(i))-1));
                 return false;
             }
             else if (!this.game.adjacent(this.pSolution.get(j), this.holeCard)) {
