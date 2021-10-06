@@ -35,6 +35,6 @@ public class BHCheck {
                 return true;
             }
         }
-        return false;
+        return true;
     }
 }
