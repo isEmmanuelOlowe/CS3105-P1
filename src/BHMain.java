@@ -156,7 +156,18 @@ public class BHMain {
 			}
 
 			/// CODE FOR SOLVING BLACK HOLE 
-			
+			BHSolve solve = new BHSolve(layout);
+			ArrayList<Integer> solution = solve.run();
+			if (solution.size() == 0 ) {
+				System.out.println("0");
+			}
+			else {
+				System.out.println("1");
+				for (int i = 0; i < solution.size()) {
+					System.out.println(" " + solution.get(i));
+				}
+			}
+
 			stdInScanner.close();
 			return;
 

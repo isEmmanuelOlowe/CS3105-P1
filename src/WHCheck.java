@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 
-/*
-* Determins if a proposed solution to a game of Black Hole is correct.
-*/
-public class BHCheck {
+public class WHCheck {
 
     // Stores the Layout of the Black Hole Game
     protected BHLayout game;
@@ -15,14 +12,16 @@ public class BHCheck {
     protected int cardRemaining = 0;
     // Stores the current card at the top of the hole.
     protected int holeCard;
+    // Stores the curent card in the worm hole.
+    protected int wormholeCard;
 
     /**
-     * Constructor for creating checker for Black Hole.
+     * Constructor for creating checker for Worm Hole.
      * 
      * @param game the layout of the game being checked if solution is present.
      * @param pSolution the proposed solution being checked.
      */
-    public BHCheck(BHLayout game, ArrayList<Integer> pSolution){
+    public WHCheck(BHLayout game, ArrayList<Integer> pSolution){
         this.game = game;
         this.pSolution = pSolution;
 
@@ -51,8 +50,23 @@ public class BHCheck {
                 // the card the solution is attempting to move to the whole.
                 int currentCard = this.pSolution.get(i + 1);
 
+                // Checks if a card is being taken out the wormhole.
+                if (currentCard < 0) {
+                    currentCard *= -1;
+                    wormholeCard = 0;
+                }
+
+                // Checks if the a card is being put in the worm hole.
+                if (pile == -1) {
+                    if (wormholeCard != 0) {
+                        return false;
+                    }
+                    else {
+                        wormholeCard = currentCard;
+                    }
+                }
                 // Checks that solutions card is at the top of it's pile in the game layout
-                if (this.game.cardAt(pile, this.pilesRemaining.get(pile) - 1) != currentCard) {
+                else if (this.game.cardAt(pile, this.pilesRemaining.get(pile) - 1) != currentCard) {
                     return false;
                 }
                 // Checks the currentCard is adjacent to the current whole card.
@@ -90,4 +104,5 @@ public class BHCheck {
             return false;
         }
     }
+    
 }
