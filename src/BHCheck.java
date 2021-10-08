@@ -32,7 +32,6 @@ public class BHCheck {
             this.pilesRemaining.add(pileSize);
             // Cacluates the total number of cards required to be added to the hole.
             this.cardRemaining += pileSize;
-            this.pilesRemaining.add(this.game.pileSize(i));
         }
 
         // Gets the hole card.
