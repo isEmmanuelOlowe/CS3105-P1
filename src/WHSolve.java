@@ -43,28 +43,18 @@ public class WHSolve {
 
     public boolean explore() {
 
-        ArrayList<Integer> path = new ArrayList<Integer>();
         for (int i = 0; i < this.game.numPiles(); i++) {
-            int card = this.game.cardAt(i, this.pilesRemaining.get(i));
+            int cardsInPile = this.pilesRemaining.get(i) - 1;
+            int card;
+            if (cardsInPile < 0) {
+                card = 0;
+            }
+            else {
+                card = this.game.cardAt(i, cardsInPile);
+            }
             if (card > 0) {
-                // Adding a card
-                if (wormholeCard == 0) {
-                    wormholeCard = card;
-                    this.pilesRemaining.set(i, this.pilesRemaining.get(i) - 1);
-                    this.solution.add(i);
-                    this.solution.add(card * -1);
-                    if (explore() == true) {
-                        return true;
-                    }
-                    else {
-                        wormholeCard = 0;
-                        this.pilesRemaining.set(i, this.pilesRemaining.get(i) + 1);
-                        this.solution.remove(this.solution.size() -1);
-                        this.solution.remove(this.solution.size() - 1);
-                    }
-                }
+
                 if (this.game.adjacent(card, holeCard)) {
-                    path.add(i);
                     int currentHole = holeCard;
                     holeCard = card;
                     cardRemaining--;
@@ -82,6 +72,23 @@ public class WHSolve {
                         this.solution.remove(this.solution.size() -1);
                         this.solution.remove(this.solution.size() - 1);
                     }  
+                }
+
+                // Adding a card to worm hole.
+                if (wormholeCard == 0) {
+                    wormholeCard = card;
+                    this.pilesRemaining.set(i, this.pilesRemaining.get(i) - 1);
+                    this.solution.add(i);
+                    this.solution.add(card * -1);
+                    if (explore() == true) {
+                        return true;
+                    }
+                    else {
+                        wormholeCard = 0;
+                        this.pilesRemaining.set(i, this.pilesRemaining.get(i) + 1);
+                        this.solution.remove(this.solution.size() -1);
+                        this.solution.remove(this.solution.size() - 1);
+                    }
                 }
             }
         }
