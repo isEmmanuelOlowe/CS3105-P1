@@ -55,6 +55,7 @@ public class WHCheck {
                     if (!this.game.adjacent(currentCard, holeCard)) {
                         return false;
                     }
+                    holeCard = currentCard;
                     wormholeCard = 0;
                 }
 
