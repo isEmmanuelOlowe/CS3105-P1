@@ -43,7 +43,14 @@ public class BHSolve {
     public boolean explore() {
         ArrayList<Integer> path = new ArrayList<Integer>();
         for (int i = 0; i < this.game.numPiles(); i++) {
-            int card = this.game.cardAt(i, this.pilesRemaining.get(i));
+            int cardsInPile = this.pilesRemaining.get(i) - 1;
+            int card;
+            if (cardsInPile < 0) {
+                card = 0;
+            }
+            else {
+                card = this.game.cardAt(i, cardsInPile);
+            }
             if (card > 0) {
                 if (this.game.adjacent(card, holeCard)) {
                     path.add(i);
@@ -72,6 +79,7 @@ public class BHSolve {
             return true;
         }
         else {
+            System.out.println("lol");
             return false;
         }
     }

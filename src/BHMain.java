@@ -163,13 +163,14 @@ public class BHMain {
 			BHSolve blackholeSolve = new BHSolve(layout);
 			ArrayList<Integer> blackholeSolution = blackholeSolve.run();
 			if (blackholeSolution.size() == 0 ) {
-				System.out.println("0");
+				System.out.print("0");
 			}
 			else {
-				System.out.println("1");
+				System.out.print("1");
 				for (int i = 0; i < blackholeSolution.size(); i++) {
-					System.out.println(" " + blackholeSolution.get(i));
+					System.out.print(" " + blackholeSolution.get(i));
 				}
+				System.out.println("");
 			}
 
 			stdInScanner.close();
@@ -190,10 +191,11 @@ public class BHMain {
 				System.out.println("0");
 			}
 			else {
-				System.out.println("1");
+				System.out.print("1");
 				for (int i = 0; i < wormholeSolution.size(); i++) {
-					System.out.println(" " + wormholeSolution.get(i));
+					System.out.print(" " + wormholeSolution.get(i));
 				}
+				System.out.println("");
 			}
 
 			stdInScanner.close();
