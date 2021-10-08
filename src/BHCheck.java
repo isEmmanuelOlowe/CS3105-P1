@@ -27,11 +27,11 @@ public class BHCheck {
         this.pSolution = pSolution;
 
         for (int i = 0; i < this.game.numPiles(); i++) {
-            int pileSize = this.game.piles(i);
+            int pileSize = this.game.pileSize(i);
             // adds the totals of cards in each pile to an arraylist
             this.pilesRemaining.add(pileSize);
             // Cacluates the total number of cards required to be added to the hole.
-            this.cardRemaining += pileSize
+            this.cardRemaining += pileSize;
             this.pilesRemaining.add(this.game.pileSize(i));
         }
 

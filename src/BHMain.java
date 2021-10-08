@@ -119,9 +119,9 @@ public class BHMain {
 			}
 
 			// CODE FOR CHECKING BLACK HOLE 
-			BHCheck checker = new BHCheck(layout, workingList);
-			boolean solution = checker.run();
-			System.out.println(solution);
+			BHCheck blackholeChecker = new BHCheck(layout, workingList);
+			boolean blackholeStatus = blackholeChecker.run();
+			System.out.println(blackholeStatus);
 			stdInScanner.close();
 			return;
 
@@ -145,6 +145,10 @@ public class BHMain {
 			}
 
 			// CODE FOR CHECKING WORM HOLE SOLUTIONS
+			WHCheck wormholeChecker = new WHCheck(layout, workingList);
+			boolean wormholeStatus = wormholeChecker.run();
+			System.out.println(wormholeStatus);
+			stdInScanner.close();
 			return;
 
 		case "SOLVE":
@@ -156,15 +160,15 @@ public class BHMain {
 			}
 
 			/// CODE FOR SOLVING BLACK HOLE 
-			BHSolve solve = new BHSolve(layout);
-			ArrayList<Integer> solution = solve.run();
-			if (solution.size() == 0 ) {
+			BHSolve blackholeSolve = new BHSolve(layout);
+			ArrayList<Integer> blackholeSolution = blackholeSolve.run();
+			if (blackholeSolution.size() == 0 ) {
 				System.out.println("0");
 			}
 			else {
 				System.out.println("1");
-				for (int i = 0; i < solution.size()) {
-					System.out.println(" " + solution.get(i));
+				for (int i = 0; i < blackholeSolution.size(); i++) {
+					System.out.println(" " + blackholeSolution.get(i));
 				}
 			}
 
@@ -180,6 +184,17 @@ public class BHMain {
 			}
 			
 			/// CODE FOR SOLVING WORM HOLE 
+			WHSolve wormholeSolve = new WHSolve(layout);
+			ArrayList<Integer> wormholeSolution = wormholeSolve.run();
+			if (wormholeSolution.size() == 0 ) {
+				System.out.println("0");
+			}
+			else {
+				System.out.println("1");
+				for (int i = 0; i < wormholeSolution.size(); i++) {
+					System.out.println(" " + wormholeSolution.get(i));
+				}
+			}
 
 			stdInScanner.close();
 			return;

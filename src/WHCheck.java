@@ -13,7 +13,7 @@ public class WHCheck {
     // Stores the current card at the top of the hole.
     protected int holeCard;
     // Stores the curent card in the worm hole.
-    protected int wormholeCard;
+    protected int wormholeCard = 0;
 
     /**
      * Constructor for creating checker for Worm Hole.
@@ -26,11 +26,11 @@ public class WHCheck {
         this.pSolution = pSolution;
 
         for (int i = 0; i < this.game.numPiles(); i++) {
-            int pileSize = this.game.piles(i);
+            int pileSize = this.game.pileSize(i);
             // adds the totals of cards in each pile to an arraylist
             this.pilesRemaining.add(pileSize);
             // Cacluates the total number of cards required to be added to the hole.
-            this.cardRemaining += pileSize
+            this.cardRemaining += pileSize;
             this.pilesRemaining.add(this.game.pileSize(i));
         }
 
