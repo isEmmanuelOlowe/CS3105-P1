@@ -118,7 +118,6 @@ public class WHCheck {
         }
         // Array out of bounds has occured
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
     }
