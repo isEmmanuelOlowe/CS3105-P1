@@ -44,6 +44,7 @@ public class WHCheck {
         try {
             // Runs over the proposed solution set
             for (int i = 0; i < this.pSolution.size(); i+=2) {
+                int wormholeBefore = wormholeCard;
                 // the current pill the solution is taking a card from
                 int pile = this.pSolution.get(i);
                 // the card the solution is attempting to move to the whole.
@@ -52,20 +53,20 @@ public class WHCheck {
                 // Checks if a card is being taken out the wormhole.
                 if (currentCard < 0) {
                     currentCard *= -1;
-                    if (!this.game.adjacent(currentCard, holeCard)) {
+                    if (wormholeCard != 0) {
                         return false;
                     }
-                    holeCard = currentCard;
-                    wormholeCard = 0;
+                    wormholeCard = currentCard;
                 }
 
                 // Checks if the a card is being put in the worm hole.
                 else if (pile == -1) {
-                    if (wormholeCard != 0) {
+                    if (!this.game.adjacent(currentCard, this.holeCard)){
                         return false;
                     }
                     else {
-                        wormholeCard = currentCard;
+                        this.holeCard = wormholeCard;
+                        wormholeCard = 0;
                     }
                 }
                 // Checks that solutions card is at the top of it's pile in the game layout
@@ -76,13 +77,26 @@ public class WHCheck {
                 else if (!this.game.adjacent(currentCard, this.holeCard)) {
                     return false;
                 }
+                
+                if (wormholeBefore == wormholeCard) {
+                    // reduces card remaining that are required to be added to the pile
+                    this.cardRemaining--;
+                    // adds the current card to the top of the hole.
+                    this.holeCard = currentCard;
+                    // reduces the amount of cards in the pile the card was taken from
+                    this.pilesRemaining.set(pile, this.pilesRemaining.get(pile) - 1);
+                }
+                else if (wormholeBefore < wormholeCard) {
+                    // reduces the amount of cards in the pile the card was taken from
+                    this.pilesRemaining.set(pile, this.pilesRemaining.get(pile) - 1);
 
-                // reduces card remaining that are required to be added to the pile
-                this.cardRemaining--;
-                // adds the current card to the top of the hole.
-                this.holeCard = currentCard;
-                // reduces the amount of cards in the pile the card was taken from
-                this.pilesRemaining.set(pile, this.pilesRemaining.get(pile) - 1);
+                }
+                else {
+                    // reduces card remaining that are required to be added to the pile
+                    this.cardRemaining--;
+                    // adds the current card to the top of the hole.
+                    this.holeCard = currentCard;
+                }
 
                 // indicates that no cards remain and solution has no more entires otherwise 
                 if (this.cardRemaining == 0 && i + 2 >= this.pSolution.size()) {
@@ -104,6 +118,7 @@ public class WHCheck {
         }
         // Array out of bounds has occured
         catch (Exception e) {
+            System.out.println(e);
             return false;
         }
     }
