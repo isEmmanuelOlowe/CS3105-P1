@@ -28,9 +28,7 @@ public class BHSolve {
             this.pilesRemaining.add(pileSize);
             // Cacluates the total number of cards required to be added to the hole.
             this.cardRemaining += pileSize;
-            this.pilesRemaining.add(this.game.pileSize(i));
         }
-
         // Gets the hole card.
         this.holeCard = this.game.holeCard();
     }
@@ -41,7 +39,6 @@ public class BHSolve {
     }
 
     public boolean explore() {
-        ArrayList<Integer> path = new ArrayList<Integer>();
         for (int i = 0; i < this.game.numPiles(); i++) {
             int cardsInPile = this.pilesRemaining.get(i) - 1;
             int card;
@@ -52,10 +49,10 @@ public class BHSolve {
                 card = this.game.cardAt(i, cardsInPile);
             }
             if (card > 0) {
-                if (this.game.adjacent(card, holeCard)) {
-                    path.add(i);
-                    int currentHole = holeCard;
-                    holeCard = card;
+                System.out.println(i);
+                if (this.game.adjacent(card, this.holeCard)) {
+                    int currentHole = this.holeCard;
+                    this.holeCard = card;
                     cardRemaining--;
                     this.pilesRemaining.set(i, this.pilesRemaining.get(i) - 1);
                     this.solution.add(i);
@@ -65,7 +62,7 @@ public class BHSolve {
                     }
                     // Undo the changes
                     else {
-                        holeCard = currentHole;
+                        this.holeCard = currentHole;
                         cardRemaining++;
                         this.pilesRemaining.set(i, this.pilesRemaining.get(i) + 1);
                         this.solution.remove(this.solution.size() -1);
