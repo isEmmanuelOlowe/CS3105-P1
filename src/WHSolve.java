@@ -42,8 +42,8 @@ public class WHSolve {
     }
 
     public boolean explore() {
-
         for (int i = 0; i < this.game.numPiles(); i++) {
+            // -1 to get the index of the ith card
             int cardsInPile = this.pilesRemaining.get(i) - 1;
             int card;
             if (cardsInPile < 0) {
@@ -54,9 +54,9 @@ public class WHSolve {
             }
             if (card > 0) {
 
-                if (this.game.adjacent(card, holeCard)) {
-                    int currentHole = holeCard;
-                    holeCard = card;
+                if (this.game.adjacent(card, this.holeCard)) {
+                    int currentHole = this.holeCard;
+                    this.holeCard = card;
                     cardRemaining--;
                     this.pilesRemaining.set(i, this.pilesRemaining.get(i) - 1);
                     this.solution.add(i);
@@ -66,7 +66,7 @@ public class WHSolve {
                     }
                     // Undo the changes
                     else {
-                        holeCard = currentHole;
+                        this.holeCard = currentHole;
                         cardRemaining++;
                         this.pilesRemaining.set(i, this.pilesRemaining.get(i) + 1);
                         this.solution.remove(this.solution.size() -1);
@@ -75,8 +75,8 @@ public class WHSolve {
                 }
 
                 // Adding a card to worm hole.
-                if (wormholeCard == 0) {
-                    wormholeCard = card;
+                if (this.wormholeCard == 0) {
+                    this.wormholeCard = card;
                     this.pilesRemaining.set(i, this.pilesRemaining.get(i) - 1);
                     this.solution.add(i);
                     this.solution.add(card * -1);
@@ -94,11 +94,11 @@ public class WHSolve {
         }
 
         // In even there is a card in the Worm Hole
-        if (wormholeCard != 0) {
-            if (this.game.adjacent(wormholeCard, holeCard)) {
-                int currentHole = holeCard;
-                holeCard = wormholeCard;
-                wormholeCard = 0;
+        if (this.wormholeCard != 0) {
+            if (this.game.adjacent(this.wormholeCard, this.holeCard)) {
+                int currentHole = this.holeCard;
+                this.holeCard = this.wormholeCard;
+                this.wormholeCard = 0;
                 cardRemaining--;
                 this.solution.add(-1);
                 this.solution.add(holeCard);
@@ -106,14 +106,13 @@ public class WHSolve {
                     return true;
                 }
                 else {
-                    wormholeCard = holeCard;
-                    holeCard = currentHole;
+                    this.wormholeCard = holeCard;
+                    this.holeCard = currentHole;
                     cardRemaining++;
                     this.solution.remove(this.solution.size() -1);
                     this.solution.remove(this.solution.size() - 1);
                 }
             }
-
         }
 
         if (cardRemaining == 0) {
