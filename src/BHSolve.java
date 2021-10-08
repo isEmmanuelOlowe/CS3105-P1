@@ -49,7 +49,6 @@ public class BHSolve {
                 card = this.game.cardAt(i, cardsInPile);
             }
             if (card > 0) {
-                System.out.println(i);
                 if (this.game.adjacent(card, this.holeCard)) {
                     int currentHole = this.holeCard;
                     this.holeCard = card;
