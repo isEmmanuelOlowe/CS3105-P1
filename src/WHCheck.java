@@ -52,11 +52,14 @@ public class WHCheck {
                 // Checks if a card is being taken out the wormhole.
                 if (currentCard < 0) {
                     currentCard *= -1;
+                    if (!this.game.adjacent(currentCard, holeCard)) {
+                        return false;
+                    }
                     wormholeCard = 0;
                 }
 
                 // Checks if the a card is being put in the worm hole.
-                if (pile == -1) {
+                else if (pile == -1) {
                     if (wormholeCard != 0) {
                         return false;
                     }
