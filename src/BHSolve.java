@@ -79,7 +79,6 @@ public class BHSolve {
             return true;
         }
         else {
-            System.out.println("lol");
             return false;
         }
     }
